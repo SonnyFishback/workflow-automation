@@ -2,28 +2,46 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
 
-# This is the URL for the internet availibilty checker site. Move to more logical place later.
+path_to_chromedriver = './chromedriver'
 internet_checker_URL = 'https://www.t-mobile.com/isp/eligibility'
 
-# This is will be the references to all of the webdrivers. There will probably need to be logic that determines which webdriver/browser is available and which one will be used to execute the given tasks but for now we're just gonna have one instance and assume we know that the user has chrome installed and the correct version.
-path_to_chromedriver = './chromedriver'
+'''
+    1.open an instance of the driver.
+    2.open driver @'https://www.t-mobile.com/isp/eligibility'
+    3.find elements needed to enter lead information.
 
-# Instance of our webdriver.
+        - phone number input: formated string as phone number.
+            element identifier: class=''
+
+        - address input: formatted string as address.
+            element identifier: class=''
+
+'''
 driver = webdriver.Chrome(path_to_chromedriver)
-
-# Open instance of driver @T-Mobile internet availibilty checker url.
 driver.get(internet_checker_URL)
 
-# Return current URL as string. This will be useful when/if we need to monitor for a change in the URL.
+
+
+
+
+
+
+
+'''returns an instance of the current url of the driver.'''
 def current_str_url_is() -> str:
     return driver.current_url
 
-# Check if given element exists. Return boolean. This will be useful when grabing elements. This will prevent grabbing elements that dont exist and crashing the scripts. Maybe run a check for all needed elements to preform a task before it is executed?
-def element_does_exist(element_class) -> bool:
+''' check if there is an element with the name of this class'''
+def element_does_exist_with(element_class) -> bool:
     try:
         driver.find_element_by_class_name(element_class)
     except NoSuchElementException:
+        print('could not find any elements with an class identifier of ${element_class}')
         return False
     return True
+'''return the first element with the class name'''
+def grab_element_with_class(element_class):
+    pass
+
 
 
